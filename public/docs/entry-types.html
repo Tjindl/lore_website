@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entry Types | Lore Docs</title>
+    <meta name="description" content="The 4 pillars of Lore: Decisions, Invariants, Gotchas, and the Graveyard.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link active">Entry Types</a><a href="/docs/commands.html" class="sidebar-link">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link">Context Compactor</a><a href="/docs/ui-dashboard.html" class="sidebar-link">UI
+                    Dashboard</a><a href="/docs/health.html" class="sidebar-link">Health &amp; Staleness</a><a
+                    href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>Entry Types</h1>
+            <p class="subtitle">Lore categorizes engineering knowledge into four distinct, semantic types.</p>
+
+            <h2>1. Decision</h2>
+            <p>An architectural or technical choice, documented with its full rationale. Prevents teams from re-debating
+                the same tradeoffs every quarter.</p>
+            <pre><code>$ lore log --type decision \
+  --title "Use Postgres over MongoDB" \
+  --context "Our data is highly relational. Joins are critical for reporting." \
+  --alternatives "MongoDB, DynamoDB" \
+  --tradeoffs "Less flexible schema, but ACID compliance is worth it"</code></pre>
+            <p><strong>When to log one:</strong> Any time you make a technology, architecture, or design choice that
+                future developers might question.</p>
+
+            <h2>2. Invariant 🔴</h2>
+            <p>A critical, unbreakable rule. If this invariant is violated, the system fails. These are the
+                highest-priority entries — when connected via MCP, AI assistants will see these <strong>before</strong>
+                they write any code.</p>
+            <pre><code>$ lore log --type invariant \
+  --title "All auth tokens must be validated on every request" \
+  --context "Never cache auth results in memory. Always validate against the token store." \
+  --files "src/middleware/auth.js"</code></pre>
+            <p><strong>When to log one:</strong> Security constraints, performance SLAs, data integrity rules,
+                regulatory requirements.</p>
+
+            <h2>3. Gotcha ⚠️</h2>
+            <p>A non-obvious behavior, footgun, or issue that has bitten the team. Documented once so nobody wastes
+                hours debugging the same problem.</p>
+            <pre><code>$ lore log --type gotcha \
+  --title "Date.now() in test fixtures produces flaky tests" \
+  --context "Jest doesn't freeze time by default. Use jest.useFakeTimers()." \
+  --tags "testing,dates"</code></pre>
+            <p><strong>When to log one:</strong> After debugging something that had a non-obvious cause, or discovering
+                surprising API behavior.</p>
+
+            <h2>4. Graveyard 🪦</h2>
+            <p>An approach that was tried and abandoned, with a record of why it failed. Prevents new team members from
+                re-attempting approaches that have already proven unworkable.</p>
+            <pre><code>$ lore log --type graveyard \
+  --title "Tried GraphQL for the public API" \
+  --context "Removed in v2 due to N+1 queries killing the DB. REST is simpler for our use case."</code></pre>
+            <p><strong>When to log one:</strong> When removing a feature, reverting a major change, or abandoning a
+                proof-of-concept.</p>
+
+            <h2>Entry Structure</h2>
+            <p>Each entry is stored as a JSON file in <code>.lore/entries/</code>. The structure includes:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>id</code></td>
+                        <td>Unique identifier (auto-generated)</td>
+                    </tr>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td><code>decision</code>, <code>invariant</code>, <code>gotcha</code>, or
+                            <code>graveyard</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>title</code></td>
+                        <td>Short, descriptive title</td>
+                    </tr>
+                    <tr>
+                        <td><code>context</code></td>
+                        <td>Full rationale and background</td>
+                    </tr>
+                    <tr>
+                        <td><code>alternatives</code></td>
+                        <td>Other options that were considered</td>
+                    </tr>
+                    <tr>
+                        <td><code>tradeoffs</code></td>
+                        <td>Tradeoffs of the chosen approach</td>
+                    </tr>
+                    <tr>
+                        <td><code>tags</code></td>
+                        <td>Comma-separated tags for filtering</td>
+                    </tr>
+                    <tr>
+                        <td><code>files</code></td>
+                        <td>Linked file paths for staleness tracking</td>
+                    </tr>
+                    <tr>
+                        <td><code>created</code></td>
+                        <td>ISO timestamp of creation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="page-nav">
+                <a href="/docs/installation.html"><span class="nav-label">← Previous</span><span
+                        class="nav-title">Installation</span></a>
+                <a href="/docs/commands.html" class="next"><span class="nav-label">Next →</span><span
+                        class="nav-title">CLI Reference</span></a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

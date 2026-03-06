@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation | Lore Docs</title>
+    <meta name="description" content="Install Lore via npm or from source. Prerequisites and setup guide.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav">
+        <a href="/docs/" class="docs-nav-brand">
+            <span class="brand-name">Lore<span style="color: var(--text-primary);">.</span></span>
+            <span class="brand-tag">Docs</span>
+        </a>
+        <div class="docs-nav-links">
+            <a href="/">Home</a>
+            <a href="https://github.com/Tjindl/Lore" target="_blank">GitHub</a>
+            <a href="https://www.npmjs.com/package/lore-memory" target="_blank">npm</a>
+        </div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div>
+                <a href="/docs/" class="sidebar-link">Getting Started</a>
+                <a href="/docs/installation.html" class="sidebar-link active">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div>
+                <a href="/docs/entry-types.html" class="sidebar-link">Entry Types</a>
+                <a href="/docs/commands.html" class="sidebar-link">CLI Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div>
+                <a href="/docs/watcher.html" class="sidebar-link">Watcher &amp; Mining</a>
+                <a href="/docs/prompt.html" class="sidebar-link">Context Compactor</a>
+                <a href="/docs/ui-dashboard.html" class="sidebar-link">UI Dashboard</a>
+                <a href="/docs/health.html" class="sidebar-link">Health &amp; Staleness</a>
+                <a href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div>
+                <a href="/docs/integrations.html" class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>Installation</h1>
+            <p class="subtitle">Install Lore globally via npm, or build from source.</p>
+
+            <h2>Prerequisites</h2>
+            <ul>
+                <li><strong>Node.js ≥ 18.0.0</strong> — Lore requires Node 18 or higher</li>
+                <li><strong>Git</strong> — your project must be a git repository for staleness tracking and the
+                    post-commit hook</li>
+            </ul>
+
+            <h3>Optional: Ollama (for semantic search)</h3>
+            <p>For full semantic vector search in <code>lore prompt</code> and <code>lore search</code>, install <a
+                    href="https://ollama.ai" target="_blank">Ollama</a> and pull the embedding model:</p>
+            <pre><code>$ ollama pull nomic-embed-text</code></pre>
+            <div class="callout callout-info">
+                <div class="callout-title">💡 Note</div>
+                Without Ollama, Lore falls back to basic keyword matching. All other features work without it.
+            </div>
+
+            <h2>Install via npm</h2>
+            <pre><code>$ npm install -g lore-memory</code></pre>
+            <p>This makes the <code>lore</code> command available globally in your terminal.</p>
+
+            <h2>Install from source</h2>
+            <pre><code>$ git clone https://github.com/Tjindl/Lore
+$ cd Lore
+$ npm install
+$ npm link</code></pre>
+            <p>The <code>npm link</code> command symlinks the <code>lore</code> binary into your PATH.</p>
+
+            <h2>Verify installation</h2>
+            <pre><code>$ lore --version
+0.4.0</code></pre>
+
+            <h2>Initialize a project</h2>
+            <pre><code>$ cd your-project
+$ lore init</code></pre>
+            <p>This creates the <code>.lore/</code> directory structure:</p>
+            <pre><code>.lore/
+├── index.json        # Entry index and file mappings
+├── entries/          # Individual entry JSON files
+├── drafts/           # Auto-captured draft entries
+├── embeddings.db     # SQLite vector database (if Ollama is running)
+└── graph.json        # Module dependency graph</code></pre>
+            <p>It also installs a <strong>Git post-commit hook</strong> that prompts you to log a decision when it
+                detects large code changes (&gt;50 lines).</p>
+
+            <div class="page-nav">
+                <a href="/docs/">
+                    <span class="nav-label">← Previous</span>
+                    <span class="nav-title">Getting Started</span>
+                </a>
+                <a href="/docs/entry-types.html" class="next">
+                    <span class="nav-label">Next →</span>
+                    <span class="nav-title">Entry Types</span>
+                </a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

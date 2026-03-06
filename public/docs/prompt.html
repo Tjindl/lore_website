@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Compactor | Lore Docs</title>
+    <meta name="description"
+        content="Generate AI-ready system prompts from your project's knowledge base using semantic search.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link">Entry Types</a><a href="/docs/commands.html" class="sidebar-link">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link active">Context Compactor</a><a href="/docs/ui-dashboard.html"
+                    class="sidebar-link">UI Dashboard</a><a href="/docs/health.html" class="sidebar-link">Health &amp;
+                    Staleness</a><a href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>Context Compactor</h1>
+            <p class="subtitle">Generate perfectly formatted LLM system prompts containing only the project context that
+                matters.</p>
+
+            <h2>How It Works</h2>
+            <p>The <code>lore prompt</code> command takes a natural language query describing what you're working on,
+                searches your knowledge base for relevant entries using semantic vector search, and outputs a formatted
+                markdown system prompt to stdout.</p>
+            <pre><code>$ lore prompt "refactoring the auth middleware"</code></pre>
+            <p>The output is pure markdown — designed to be piped directly into your clipboard, a file, or an AI tool:
+            </p>
+            <pre><code># Pipe to clipboard (macOS)
+$ lore prompt "auth" | pbcopy
+
+# Save to a file
+$ lore prompt "database migration" > context.md</code></pre>
+
+            <h2>Semantic Search</h2>
+            <p>When Ollama is running with the <code>nomic-embed-text</code> model, Lore uses semantic vector embeddings
+                for search. This means you can query by <strong>concept</strong>, not just keyword:</p>
+            <ul>
+                <li>Query: <em>"authentication"</em> → matches entries about JWT, OAuth, tokens, login flows</li>
+                <li>Query: <em>"performance bottleneck"</em> → matches entries about caching, N+1 queries, SLA budgets
+                </li>
+            </ul>
+            <p>Build/rebuild the embedding index at any time:</p>
+            <pre><code>$ lore embed</code></pre>
+
+            <div class="callout callout-info">
+                <div class="callout-title">💡 Fallback</div>
+                If Ollama is not running, <code>lore prompt</code> automatically falls back to basic text matching using
+                title and context fields.
+            </div>
+
+            <h2>Options</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-t, --threshold &lt;n&gt;</code></td>
+                        <td>Minimum relevance score (0.0–1.0). Lower = more results, less precise.</td>
+                        <td><code>0.4</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>-l, --limit &lt;n&gt;</code></td>
+                        <td>Maximum number of entries to include in the prompt.</td>
+                        <td><code>10</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre><code># Include more entries with lower relevance threshold
+$ lore prompt "payments" --threshold 0.3 --limit 20</code></pre>
+
+            <h2>Output Format</h2>
+            <p>The generated prompt groups entries by type (invariants first, then decisions, gotchas, and graveyard)
+                with markdown formatting. Invariants are given the highest priority since they represent unbreakable
+                constraints the AI must respect.</p>
+
+            <h2>Workflow Example</h2>
+            <pre><code># 1. You want Claude to help refactor auth
+$ lore prompt "refactoring auth" | pbcopy
+
+# 2. Paste the system prompt into Claude, ChatGPT, or any LLM
+#    The AI now knows:
+#    - JWT must be validated on every request (invariant)
+#    - You chose JWT over sessions (decision)
+#    - Date.now() causes flaky tests (gotcha)</code></pre>
+
+            <div class="page-nav">
+                <a href="/docs/watcher.html"><span class="nav-label">← Previous</span><span class="nav-title">Watcher
+                        &amp; Mining</span></a>
+                <a href="/docs/ui-dashboard.html" class="next"><span class="nav-label">Next →</span><span
+                        class="nav-title">UI Dashboard</span></a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

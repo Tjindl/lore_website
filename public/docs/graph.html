@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dependency Graph | Lore Docs</title>
+    <meta name="description"
+        content="Visualize import relationships between modules and track which files have Lore entries.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link">Entry Types</a><a href="/docs/commands.html" class="sidebar-link">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link">Context Compactor</a><a href="/docs/ui-dashboard.html" class="sidebar-link">UI
+                    Dashboard</a><a href="/docs/health.html" class="sidebar-link">Health &amp; Staleness</a><a
+                    href="/docs/graph.html" class="sidebar-link active">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>Dependency Graph</h1>
+            <p class="subtitle">Map the import relationships in your codebase and discover which modules carry Lore
+                knowledge.</p>
+
+            <h2>Overview</h2>
+            <p>Lore parses your source files to build a module-level dependency graph — tracking which files import
+                which. This graph is stored in <code>.lore/graph.json</code> and powers the dependency visualization in
+                the UI dashboard.</p>
+
+            <h2>Build the Graph</h2>
+            <pre><code># Build or rebuild the full dependency graph
+$ lore graph --build
+
+📖 Building dependency graph...
+✓ Graph built: 42 files indexed</code></pre>
+
+            <h2>View Graph Stats</h2>
+            <pre><code>$ lore graph
+
+📖 Dependency Graph
+  Files indexed: 42
+  Import edges:  87
+  Last updated:  2025-03-05T22:30:00Z
+
+  Run: lore graph <filepath>  for file details
+  Run: lore graph --build     to rebuild from scratch</code></pre>
+
+            <h2>Inspect a File</h2>
+            <p>Pass a filepath to see what it imports and what imports it, along with how many Lore entries are attached
+                to each dependency:</p>
+            <pre><code>$ lore graph src/api/auth.js
+
+📖 src/api/auth.js
+
+Imports:
+  src/db/users.js        → 2 Lore entries
+  src/utils/jwt.js       → 1 Lore entry
+  src/middleware/rateLimit.js  → 0 Lore entries
+
+Imported by:
+  src/routes/login.js    → 1 Lore entry
+  src/routes/signup.js   → 0 Lore entries</code></pre>
+
+            <h2>How It Works</h2>
+            <p>Lore uses <a href="https://babeljs.io/docs/babel-parser" target="_blank">Babel Parser</a> to parse
+                JavaScript/TypeScript source files and extract <code>import</code> and <code>require()</code>
+                statements. The resulting graph tracks two relationships per file:</p>
+            <ul>
+                <li><strong>Imports:</strong> files that this module depends on</li>
+                <li><strong>Imported by:</strong> files that depend on this module</li>
+            </ul>
+            <p>When viewing a file's graph, Lore also cross-references the index to show how many Lore entries are
+                linked to each dependency. This helps you identify critical dependency chains that may lack
+                documentation.</p>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">⚠️ Language Support</div>
+                The dependency graph parser currently supports JavaScript and TypeScript files (ES modules and
+                CommonJS). Support for other languages may be added in future versions.
+            </div>
+
+            <div class="page-nav">
+                <a href="/docs/health.html"><span class="nav-label">← Previous</span><span class="nav-title">Health
+                        &amp; Staleness</span></a>
+                <a href="/docs/integrations.html" class="next"><span class="nav-label">Next →</span><span
+                        class="nav-title">Integrations</span></a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

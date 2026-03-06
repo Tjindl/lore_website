@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started | Lore Docs</title>
+    <meta name="description" content="Get started with Lore — persistent project memory for developers.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav">
+        <a href="/docs/" class="docs-nav-brand">
+            <span class="brand-name">Lore<span style="color: var(--text-primary);">.</span></span>
+            <span class="brand-tag">Docs</span>
+        </a>
+        <div class="docs-nav-links">
+            <a href="/">Home</a>
+            <a href="https://github.com/Tjindl/Lore" target="_blank">GitHub</a>
+            <a href="https://www.npmjs.com/package/lore-memory" target="_blank">npm</a>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div>
+                <a href="/docs/" class="sidebar-link active">Getting Started</a>
+                <a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div>
+                <a href="/docs/entry-types.html" class="sidebar-link">Entry Types</a>
+                <a href="/docs/commands.html" class="sidebar-link">CLI Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div>
+                <a href="/docs/watcher.html" class="sidebar-link">Watcher &amp; Mining</a>
+                <a href="/docs/prompt.html" class="sidebar-link">Context Compactor</a>
+                <a href="/docs/ui-dashboard.html" class="sidebar-link">UI Dashboard</a>
+                <a href="/docs/health.html" class="sidebar-link">Health &amp; Staleness</a>
+                <a href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div>
+                <a href="/docs/integrations.html" class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <h1>Getting Started</h1>
+            <p class="subtitle">Set up Lore in under 5 minutes. Zero configuration required.</p>
+
+            <h2>What is Lore?</h2>
+            <p>Lore is persistent, project-level memory for developers. It captures the <strong>why</strong> behind your
+                code — architectural decisions, invariants, gotchas, and abandoned approaches — and stores them as
+                structured JSON alongside your codebase in a <code>.lore/</code> directory.</p>
+            <p>Every entry is versioned in git, so your team automatically shares the project's institutional knowledge.
+                When you use AI coding tools like Claude or Cursor, Lore injects this context directly into your
+                sessions via MCP.</p>
+
+            <h2>Quick Start</h2>
+            <p>Get Lore running in your project in 4 steps:</p>
+
+            <h3>1. Install globally via npm</h3>
+            <pre><code>$ npm install -g lore-memory</code></pre>
+
+            <h3>2. Initialize in your project</h3>
+            <pre><code>$ cd your-project
+$ lore init</code></pre>
+            <p>This creates a <code>.lore/</code> directory in your project root, installs a git post-commit hook, and
+                scans for existing code comments.</p>
+
+            <h3>3. Start capturing context</h3>
+            <pre><code>$ lore watch --daemon</code></pre>
+            <p>The watcher runs in the background, scanning for signal phrases like <code>WARNING:</code>,
+                <code>HACK:</code>, and <code>IMPORTANT:</code> in your code comments and automatically drafting Lore
+                entries.</p>
+
+            <h3>4. Generate an AI prompt</h3>
+            <pre><code>$ lore prompt "refactoring auth" | pbcopy</code></pre>
+            <p>Lore uses semantic vector search to find the most relevant entries for your query and compiles a
+                formatted system prompt ready for any LLM.</p>
+
+            <div class="callout callout-info">
+                <div class="callout-title">💡 Interactive Menu</div>
+                If you forget a command, just type <code>lore</code> with no arguments to launch the interactive menu.
+            </div>
+
+            <h2>What's Next?</h2>
+            <ul>
+                <li><a href="/docs/installation.html">Installation</a> — prerequisites, alternative install methods</li>
+                <li><a href="/docs/entry-types.html">Entry Types</a> — understand the 4 knowledge categories</li>
+                <li><a href="/docs/commands.html">CLI Reference</a> — all 16 commands with options</li>
+                <li><a href="/docs/integrations.html">Integrations</a> — set up Claude Code or Cursor via MCP</li>
+            </ul>
+
+            <div class="page-nav">
+                <div></div>
+                <a href="/docs/installation.html" class="next">
+                    <span class="nav-label">Next →</span>
+                    <span class="nav-title">Installation</span>
+                </a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

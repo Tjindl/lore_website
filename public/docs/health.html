@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health &amp; Staleness | Lore Docs</title>
+    <meta name="description"
+        content="Measure your project's documentation health with Lore Score and detect stale entries.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link">Entry Types</a><a href="/docs/commands.html" class="sidebar-link">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link">Context Compactor</a><a href="/docs/ui-dashboard.html" class="sidebar-link">UI
+                    Dashboard</a><a href="/docs/health.html" class="sidebar-link active">Health &amp; Staleness</a><a
+                    href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>Health &amp; Staleness</h1>
+            <p class="subtitle">Gamify your documentation with Lore Score and catch outdated knowledge before it
+                misleads your team.</p>
+
+            <h2>Lore Score</h2>
+            <p>Run <code>lore score</code> to see your project's memory health — a composite score from 0 to 100 based
+                on three metrics:</p>
+            <pre><code>$ lore score
+
+📖 Lore Score: 72/100  (Good)
+────────────────────────────────
+
+Coverage     68/100
+  ████████████████░░░░  5/8 active modules documented
+
+Freshness    80/100
+  ████████████████████░
+
+Depth        65/100
+  █████████████████░░░░
+
+────────────────────────────────
+Score history: 58 → 65 → 72 (improving)
+Tip: Add invariants and gotchas — run: lore log --type invariant</code></pre>
+
+            <h3>Coverage (0–100)</h3>
+            <p>What percentage of your actively-developed modules have at least one Lore entry? Lore identifies "active
+                modules" by looking at recent git commit history. Modules with many commits but zero entries are flagged
+                as <strong>highest risk</strong>.</p>
+
+            <h3>Freshness (0–100)</h3>
+            <p>How many of your entries are still up-to-date? If linked files have been modified since the entry was
+                last updated, freshness drops. Higher freshness means your knowledge base reflects the current state of
+                the codebase.</p>
+
+            <h3>Depth (0–100)</h3>
+            <p>Do you have a healthy mix of entry types? A project with only Decisions but no Invariants or Gotchas has
+                shallow coverage. Depth rewards diversity across all four entry types.</p>
+
+            <h2>Score Rating</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Score</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>90–100</td>
+                        <td>Excellent</td>
+                    </tr>
+                    <tr>
+                        <td>75–89</td>
+                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td>60–74</td>
+                        <td>Fair</td>
+                    </tr>
+                    <tr>
+                        <td>40–59</td>
+                        <td>Needs Work</td>
+                    </tr>
+                    <tr>
+                        <td>0–39</td>
+                        <td>Low</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Staleness Detection</h2>
+            <p>When you create a Lore entry, you can link it to specific files using <code>--files</code>. Lore then
+                monitors git history — if a linked file is modified in a future commit, the entry is flagged as
+                <code>[Stale]</code>.</p>
+            <pre><code>$ lore stale
+
+⚠ Stale Entries (3)
+
+  [Stale] "Auth tokens must be validated on every request"
+    linked to: src/middleware/auth.js
+    last modified: 2 days ago (3 commits since entry)
+
+  [Stale] "Use Postgres over MongoDB"
+    linked to: src/db/connection.js
+    last modified: 1 week ago</code></pre>
+
+            <h3>How staleness works</h3>
+            <ol>
+                <li>Entry links to file <code>src/api/auth.js</code> via <code>--files</code></li>
+                <li>A teammate modifies <code>src/api/auth.js</code> in a later commit</li>
+                <li>Lore detects the linked file changed via git log analysis</li>
+                <li>The entry is flagged as <code>[Stale]</code></li>
+                <li>Run <code>lore stale</code> to see all stale entries and decide if they need updating</li>
+            </ol>
+
+            <h2>Quick Status Check</h2>
+            <pre><code>$ lore status
+
+📖 Lore Status
+  Entries:   12 (4 decisions, 3 invariants, 3 gotchas, 2 graveyard)
+  Drafts:    5 pending
+  Stale:     3 entries need review</code></pre>
+
+            <div class="page-nav">
+                <a href="/docs/ui-dashboard.html"><span class="nav-label">← Previous</span><span class="nav-title">UI
+                        Dashboard</span></a>
+                <a href="/docs/graph.html" class="next"><span class="nav-label">Next →</span><span
+                        class="nav-title">Dependency Graph</span></a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Dashboard | Lore Docs</title>
+    <meta name="description" content="Lore's local web dashboard for browsing your project's knowledge base.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link">Entry Types</a><a href="/docs/commands.html" class="sidebar-link">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link">Context Compactor</a><a href="/docs/ui-dashboard.html"
+                    class="sidebar-link active">UI Dashboard</a><a href="/docs/health.html" class="sidebar-link">Health
+                    &amp; Staleness</a><a href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>UI Dashboard</h1>
+            <p class="subtitle">A local web dashboard for browsing, searching, and managing your project's knowledge
+                base.</p>
+
+            <h2>Launching the Dashboard</h2>
+            <pre><code>$ lore ui</code></pre>
+            <p>This starts a local Express server and opens your browser to the dashboard. By default it runs on port
+                <strong>3333</strong>.</p>
+            <pre><code># Use a custom port
+$ lore ui --port 8080</code></pre>
+
+            <h2>Dashboard Features</h2>
+            <h3>Knowledge Base View</h3>
+            <p>Browse all your Lore entries in a searchable, filterable interface. Each entry displays its type, title,
+                context, linked files, tags, and creation date. Entries are rendered as formatted Markdown.</p>
+
+            <h3>Drafts Review</h3>
+            <p>Review auto-captured drafts directly in the dashboard UI. Accept, edit, or discard drafts without
+                touching the command line.</p>
+
+            <h3>Health Score</h3>
+            <p>View your project's Lore Score — a composite metric of Coverage, Freshness, and Depth — with visual
+                progress bars and actionable tips.</p>
+
+            <h3>Dependency Graph</h3>
+            <p>Visualize the import/dependency relationships between your project's modules and see which files have
+                Lore entries attached.</p>
+
+            <h2>How It Works</h2>
+            <p>The dashboard is a built-in Express server bundled with Lore. It serves a static HTML/CSS/JS frontend and
+                reads directly from your <code>.lore/</code> directory. No data ever leaves your machine — everything is
+                100% local.</p>
+
+            <div class="callout callout-info">
+                <div class="callout-title">💡 Tip</div>
+                The UI is read-only by default. To edit entries, use <code>lore edit &lt;id&gt;</code> to open the JSON
+                in your editor, or use the drafts review interface.
+            </div>
+
+            <div class="page-nav">
+                <a href="/docs/prompt.html"><span class="nav-label">← Previous</span><span class="nav-title">Context
+                        Compactor</span></a>
+                <a href="/docs/health.html" class="next"><span class="nav-label">Next →</span><span
+                        class="nav-title">Health &amp; Staleness</span></a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

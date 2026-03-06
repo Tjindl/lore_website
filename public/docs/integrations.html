@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrations | Lore Docs</title>
+    <meta name="description"
+        content="Set up Lore with Claude Code, Cursor, and other AI tools via the Model Context Protocol.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link">Entry Types</a><a href="/docs/commands.html" class="sidebar-link">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link">Context Compactor</a><a href="/docs/ui-dashboard.html" class="sidebar-link">UI
+                    Dashboard</a><a href="/docs/health.html" class="sidebar-link">Health &amp; Staleness</a><a
+                    href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link active">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>Integrations</h1>
+            <p class="subtitle">Connect Lore to your AI coding tools via the Model Context Protocol (MCP).</p>
+
+            <h2>What is MCP?</h2>
+            <p>The <a href="https://modelcontextprotocol.io" target="_blank">Model Context Protocol (MCP)</a> is a
+                standard for giving AI assistants access to external tools and data sources. Lore ships with a built-in
+                MCP server that exposes your project's knowledge base to AI editors.</p>
+            <p>When connected, the AI can <strong>automatically</strong> query your project's decisions, invariants, and
+                gotchas before writing or modifying code.</p>
+
+            <h2>Claude Code</h2>
+            <p>Add Lore to your Claude Code configuration at <code>~/.claude/settings.json</code>:</p>
+            <pre><code>{
+  "mcpServers": {
+    "lore": {
+      "command": "lore",
+      "args": ["serve"]
+    }
+  }
+}</code></pre>
+            <p>Once configured, Claude Code will have access to the following Lore tools:</p>
+
+            <h3>Available MCP Tools</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>lore_overview</code></td>
+                        <td>Returns a full summary of the project's knowledge base — entry counts, types, and key
+                            entries</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore_why</code></td>
+                        <td>Given a file path, returns all Lore entries linked to that file. Claude calls this
+                            automatically when you ask it to work on a file.</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore_search</code></td>
+                        <td>Semantic search across all entries using a natural language query</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore_log</code></td>
+                        <td>Allows Claude to log new Lore entries directly from the conversation</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore_drafts</code></td>
+                        <td>Review and manage auto-captured draft entries</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore_stale</code></td>
+                        <td>Check for stale entries that may need updating</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-info">
+                <div class="callout-title">💡 How Claude uses Lore</div>
+                When you ask Claude to work on a file, it automatically calls <code>lore_why</code> to check for
+                invariants and decisions linked to that file. This prevents it from suggesting refactors that break
+                established constraints.
+            </div>
+
+            <h2>Cursor</h2>
+            <p>Cursor supports MCP servers through its settings. Add the same config:</p>
+            <ol>
+                <li>Open Cursor Settings → MCP</li>
+                <li>Add a new MCP server with:</li>
+            </ol>
+            <pre><code>{
+  "command": "lore",
+  "args": ["serve"]
+}</code></pre>
+            <p>Cursor will now have access to the same 6 MCP tools listed above.</p>
+
+            <h2>VS Code</h2>
+            <p>VS Code supports MCP through extensions like <a
+                    href="https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code"
+                    target="_blank">Claude Code for VS Code</a>. Once you have the extension installed, configure Lore
+                as an MCP server in your workspace settings.</p>
+
+            <h2>Manual / Terminal Usage</h2>
+            <p>If your AI tool doesn't support MCP, you can still use Lore via the CLI:</p>
+            <pre><code># Generate a context prompt and pipe to clipboard
+$ lore prompt "auth migration" | pbcopy
+
+# Export all entries to a CLAUDE.md file
+$ lore export</code></pre>
+            <p>The <code>lore export</code> command generates a <code>CLAUDE.md</code> file at your project root
+                containing all entries in a format optimized for AI consumption. This file can be included in any AI
+                tool's context window.</p>
+
+            <h2>The MCP Server</h2>
+            <p>The MCP server communicates over <strong>stdio</strong> (standard input/output). You can test it
+                directly:</p>
+            <pre><code># Start the MCP server
+$ lore serve
+
+# With quiet mode (suppresses startup messages)
+$ lore serve --quiet</code></pre>
+            <p>The server uses the <code>@modelcontextprotocol/sdk</code> npm package and implements the standard MCP
+                tool protocol.</p>
+
+            <div class="page-nav">
+                <a href="/docs/graph.html"><span class="nav-label">← Previous</span><span class="nav-title">Dependency
+                        Graph</span></a>
+                <div></div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

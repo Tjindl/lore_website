@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Reference | Lore Docs</title>
+    <meta name="description" content="Complete CLI reference for all 16 Lore commands with options and examples.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link">Entry Types</a><a href="/docs/commands.html" class="sidebar-link active">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link">Context Compactor</a><a href="/docs/ui-dashboard.html" class="sidebar-link">UI
+                    Dashboard</a><a href="/docs/health.html" class="sidebar-link">Health &amp; Staleness</a><a
+                    href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>CLI Reference</h1>
+            <p class="subtitle">All 16 Lore commands with their options, flags, and usage examples.</p>
+
+            <h2>Setup &amp; Capture</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>lore init</code></td>
+                        <td>Initialize <code>.lore/</code> in the current repo, install git post-commit hook</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore log</code></td>
+                        <td>Log an entry interactively or via flags</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore mine [path]</code></td>
+                        <td>Scan a file or directory for lore-worthy comments</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore watch</code></td>
+                        <td>Start the file watcher in the foreground</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore embed</code></td>
+                        <td>Build semantic search index using Ollama</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Review &amp; Edit</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>lore ui</code></td>
+                        <td>Launch the local web dashboard</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore drafts</code></td>
+                        <td>Review pending auto-captured drafts interactively</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore edit &lt;id&gt;</code></td>
+                        <td>Open an entry JSON in your editor</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Query &amp; Export</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>lore prompt &lt;query&gt;</code></td>
+                        <td>Generate a formatted LLM context prompt from project memory</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore why &lt;file&gt;</code></td>
+                        <td>Show all entries relevant to a file or directory</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore search &lt;query&gt;</code></td>
+                        <td>Search entries by keyword (semantic if Ollama is running)</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore graph [filepath]</code></td>
+                        <td>Show dependency graph stats or file details</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore export</code></td>
+                        <td>Generate <code>CLAUDE.md</code> at project root</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Health &amp; Onboarding</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>lore status</code></td>
+                        <td>Entry counts, draft count, stale summary</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore stale</code></td>
+                        <td>Full stale report with semantic pattern analysis</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore score</code></td>
+                        <td>Lore Score (0–100): coverage, freshness, depth</td>
+                    </tr>
+                    <tr>
+                        <td><code>lore onboard</code></td>
+                        <td>Print a re-onboarding brief for the project</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>AI Integration</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>lore serve</code></td>
+                        <td>Start the MCP server (stdio) for Claude Code / Cursor</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Command Details</h2>
+
+            <h3><code>lore log</code></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>--type &lt;type&gt;</code></td>
+                        <td><code>decision</code>, <code>invariant</code>, <code>graveyard</code>, or
+                            <code>gotcha</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>--title &lt;title&gt;</code></td>
+                        <td>Entry title</td>
+                    </tr>
+                    <tr>
+                        <td><code>--context &lt;context&gt;</code></td>
+                        <td>Context / reasoning</td>
+                    </tr>
+                    <tr>
+                        <td><code>--alternatives &lt;alts&gt;</code></td>
+                        <td>Alternatives considered</td>
+                    </tr>
+                    <tr>
+                        <td><code>--tradeoffs &lt;tradeoffs&gt;</code></td>
+                        <td>Tradeoffs of the choice</td>
+                    </tr>
+                    <tr>
+                        <td><code>--tags &lt;tags&gt;</code></td>
+                        <td>Comma-separated tags</td>
+                    </tr>
+                    <tr>
+                        <td><code>--files &lt;files&gt;</code></td>
+                        <td>Comma-separated file paths for staleness linking</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Without flags, <code>lore log</code> launches an interactive prompt.</p>
+
+            <h3><code>lore watch</code></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-d, --daemon</code></td>
+                        <td>Run as a background daemon process</td>
+                    </tr>
+                    <tr>
+                        <td><code>--stop</code></td>
+                        <td>Stop the running background daemon</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3><code>lore prompt</code></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-t, --threshold &lt;n&gt;</code></td>
+                        <td>Relevance threshold (0.0–1.0)</td>
+                        <td><code>0.4</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>-l, --limit &lt;n&gt;</code></td>
+                        <td>Max entries to include</td>
+                        <td><code>10</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3><code>lore ui</code></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-p, --port &lt;port&gt;</code></td>
+                        <td>Port to run the dashboard on</td>
+                        <td><code>3333</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3><code>lore drafts</code></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>--auto</code></td>
+                        <td>Auto-accept drafts with confidence ≥ 0.8</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3><code>lore graph</code></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>--build</code></td>
+                        <td>Rebuild the full dependency graph from source</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3><code>lore onboard</code></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>--days &lt;n&gt;</code></td>
+                        <td>Only show if away for at least N days</td>
+                        <td><code>0</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3><code>lore serve</code></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-q, --quiet</code></td>
+                        <td>Suppress startup messages (for piping into MCP client)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="page-nav">
+                <a href="/docs/entry-types.html"><span class="nav-label">← Previous</span><span class="nav-title">Entry
+                        Types</span></a>
+                <a href="/docs/watcher.html" class="next"><span class="nav-label">Next →</span><span
+                        class="nav-title">Watcher &amp; Mining</span></a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

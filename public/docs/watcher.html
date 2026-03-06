@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watcher &amp; Mining | Lore Docs</title>
+    <meta name="description"
+        content="Lore passive watcher and comment mining — automatic knowledge capture from your code.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link">Entry Types</a><a href="/docs/commands.html" class="sidebar-link">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link active">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link">Context Compactor</a><a href="/docs/ui-dashboard.html" class="sidebar-link">UI
+                    Dashboard</a><a href="/docs/health.html" class="sidebar-link">Health &amp; Staleness</a><a
+                    href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>Watcher &amp; Mining</h1>
+            <p class="subtitle">Automatically capture project knowledge from your code comments without leaving your
+                workflow.</p>
+
+            <h2>The Watcher</h2>
+            <p>The watcher is a background process that monitors your source files for changes using <a
+                    href="https://github.com/paulmillr/chokidar" target="_blank">Chokidar</a>. When it detects
+                modifications, it scans for signal phrases in code comments.</p>
+
+            <h3>Start the watcher</h3>
+            <pre><code># Run in the foreground
+$ lore watch
+
+# Run as a background daemon
+$ lore watch --daemon
+
+# Stop the background daemon
+$ lore watch --stop</code></pre>
+
+            <h2>Signal Phrases</h2>
+            <p>The watcher and miner look for specific phrases in your code comments that indicate lore-worthy
+                knowledge:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Signal Phrase</th>
+                        <th>Drafted As</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>WARNING:</code></td>
+                        <td>Gotcha</td>
+                        <td><code>// WARNING: This API returns 201, not 200</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>HACK:</code></td>
+                        <td>Gotcha</td>
+                        <td><code>// HACK: Workaround for async race condition</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>IMPORTANT:</code></td>
+                        <td>Invariant</td>
+                        <td><code>// IMPORTANT: Must validate before saving</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>we chose</code></td>
+                        <td>Decision</td>
+                        <td><code>// we chose Postgres for ACID compliance</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>TODO:</code></td>
+                        <td>Gotcha</td>
+                        <td><code>// TODO: Fix edge case with empty arrays</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Comment Mining</h2>
+            <p>For an immediate one-time scan (instead of continuous watching), use the <code>mine</code> command:</p>
+            <pre><code># Scan all files
+$ lore mine .
+
+# Scan a specific directory
+$ lore mine src/api
+
+# Scan a single file
+$ lore mine src/utils/auth.js</code></pre>
+            <p>Mined comments are saved as <strong>drafts</strong> in <code>.lore/drafts/</code>, not as confirmed
+                entries. Review them with <code>lore drafts</code>.</p>
+
+            <h2>Auto-Drafting Heuristics</h2>
+            <p>Beyond signal phrases, the watcher uses behavioral heuristics:</p>
+            <ul>
+                <li><strong>File deletion:</strong> If a file with more than 100 lines is deleted, a Graveyard draft is
+                    created</li>
+                <li><strong>Frequent edits:</strong> If the same file is modified 5+ times in a week, a Gotcha draft is
+                    created</li>
+                <li><strong>Large commits:</strong> The git post-commit hook intercepts commits with &gt;50 changed
+                    lines and prompts you to log a Decision</li>
+            </ul>
+
+            <h2>Reviewing Drafts</h2>
+            <pre><code># Review all drafts interactively
+$ lore drafts
+
+# Auto-accept drafts with high confidence (≥ 0.8)
+$ lore drafts --auto</code></pre>
+            <p>Each draft shows the source file, signal phrase matched, and a confidence score. You can accept, edit, or
+                discard each one.</p>
+
+            <div class="page-nav">
+                <a href="/docs/commands.html"><span class="nav-label">← Previous</span><span class="nav-title">CLI
+                        Reference</span></a>
+                <a href="/docs/prompt.html" class="next"><span class="nav-label">Next →</span><span
+                        class="nav-title">Context Compactor</span></a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
