@@ -1,27 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Colors - Pure Obsidian Hacker Theme */
+  /* Colors - Refined Hacker Theme */
   --bg-base: 0 0% 0%;
   /* Pure Black */
   --bg-surface: 0 0% 4%;
   /* Barely lighter black (#0A0A0A) */
-  --bg-surface-hover: 135 100% 4%;
-  /* Slight green hover */
+  --bg-surface-hover: 0 0% 7%;
+  /* Slight hover */
   --text-primary: 135 100% 50%;
-  /* Hacker Neon Green #00FF41 */
-  --text-secondary: 135 100% 40%;
-  /* Darker Green */
-  --text-tertiary: 135 100% 25%;
-  /* Dim/Muted Green */
-  --border-color: 135 100% 15%;
-  /* Green-tinted border */
+  /* Neon Green for headings & accents */
+  --text-secondary: 120 5% 72%;
+  /* Soft gray-green for body text */
+  --text-tertiary: 120 3% 45%;
+  /* Muted gray for captions */
+  --border-color: 135 40% 12%;
+  /* Subtle green-tinted border */
 
-  /* Refined, Muted Accents (Linear/Vercel styling) */
+  /* Accents */
   --accent-primary: 135 100% 50%;
   /* Neon Green */
-  --accent-secondary: 135 100% 30%;
-  /* Dark Green */
+  --accent-secondary: 135 60% 35%;
+  /* Muted Green */
   --accent-danger: 0 84% 60%;
   /* Alert Red */
   --accent-warning: 35 100% 55%;
@@ -59,7 +59,7 @@
 body {
   font-family: var(--font-sans);
   background-color: hsl(var(--bg-base));
-  color: hsl(var(--text-primary));
+  color: hsl(var(--text-secondary));
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -75,7 +75,8 @@ h6 {
   line-height: 1.1;
   font-weight: 600;
   letter-spacing: -0.04em;
-  /* Aggressive tracking for premium feel */
+  color: hsl(var(--text-primary));
+  /* Headings stay neon green */
 }
 
 .text-gradient {
