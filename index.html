@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/svg+xml" href="/lore-icon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lore | Local-First Project Memory</title>
   <meta name="description"
@@ -238,7 +238,7 @@
           <p>Run <code>lore prompt "Refactoring Auth"</code> and Lore instantly uses semantic vector search to compile a
             perfectly formatted, zero-shot system prompt.</p>
           <p><strong style="color: hsl(var(--accent-secondary))">Saves Context Tokens:</strong> Rather than dumping your
-            entire project documentation into the AI, Lore uses graph-weighted context to inject only the precise
+            entire project documentation into the AI, Lore uses semantic vector search to inject only the precise
             invariants, decisions, and gotchas the LLM needs to know before it touches your code.</p>
         </div>
         <div class="workflow-terminal terminal-block">
@@ -251,11 +251,11 @@
             <div><span class="token prompt">$</span><span class="token command">lore</span> <span
                 class="token arg">prompt "auth" | pbcopy</span></div>
             <div style="color: hsl(var(--text-secondary)); margin-top: 1rem;">
-              <span style="color: hsl(var(--accent-success))">✓</span> Semantic search complete<br />
-              <span style="color: hsl(var(--accent-success))">✓</span> 3 invariants injected<br />
-              <span style="color: hsl(var(--accent-success))">✓</span> 1 gotcha injected<br />
+              <span style="color: hsl(var(--accent-success))">→</span> Found 3 relevant entries via semantic
+              search<br />
+              <span style="color: hsl(var(--accent-success))">→</span> 2 invariants, 1 gotcha included<br />
               <br />
-              System prompt copied to clipboard!
+              System prompt written to stdout — pipe to clipboard or file.
             </div>
           </div>
         </div>
@@ -394,7 +394,7 @@
             <li><span class="comparison-icon good">✓</span>Decisions are recorded once with full rationale</li>
             <li><span class="comparison-icon good">✓</span>Gotchas surface before they bite again</li>
             <li><span class="comparison-icon good">✓</span>Auto-capture means docs stay alive by default</li>
-            <li><span class="comparison-icon good">✓</span>Graph-weighted context compactor saves tokens</li>
+            <li><span class="comparison-icon good">✓</span>Semantic search context compactor saves tokens</li>
           </ul>
         </div>
       </div>
@@ -562,7 +562,7 @@
         </div>
       </div>
       <p style="color: hsl(var(--text-tertiary)); font-size: 0.875rem;">
-        Built strictly as a CLI pipeline tool. The output is pure console.log.
+        CLI-first pipeline tool with a built-in web dashboard.
       </p>
       <p style="color: hsl(var(--text-tertiary)); font-size: 0.875rem; margin-top: 1rem;">
         <span style="font-weight: 600; color: hsl(var(--text-secondary));">Stack:</span>
@@ -572,7 +572,6 @@
             d="M12 1.85c-.27 0-.55.07-.78.2l-7.44 4.3c-.48.28-.78.8-.78 1.36v8.58c0 .56.3 1.08.78 1.36l7.44 4.3c.23.13.51.2.78.2s.55-.07.78-.2l7.44-4.3c.48-.28.78-.8.78-1.36V7.71c0-.56-.3-1.08-.78-1.36l-7.44-4.3c-.23-.13-.51-.2-.78-.2z" />
         </svg> Node.js &middot;
         Express &middot;
-        Tailwind CSS &middot;
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"
           style="vertical-align: middle; margin: 0 2px;">
           <circle cx="12" cy="12" r="10" />
