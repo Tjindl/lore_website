@@ -1,32 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Colors - Pure Obsidian Dark Theme */
+  /* Colors - Pure Obsidian Hacker Theme */
   --bg-base: 0 0% 0%;
   /* Pure Black */
   --bg-surface: 0 0% 4%;
   /* Barely lighter black (#0A0A0A) */
-  --bg-surface-hover: 0 0% 8%;
-  /* Slight hover */
-  --text-primary: 0 0% 98%;
-  /* High contrast off-white */
-  --text-secondary: 0 0% 63%;
-  /* Refined #A1A1AA gray */
-  --text-tertiary: 0 0% 45%;
-  /* Muted gray */
-  --border-color: 0 0% 15%;
-  /* Sharp dark border */
+  --bg-surface-hover: 135 100% 4%;
+  /* Slight green hover */
+  --text-primary: 135 100% 50%;
+  /* Hacker Neon Green #00FF41 */
+  --text-secondary: 135 100% 40%;
+  /* Darker Green */
+  --text-tertiary: 135 100% 25%;
+  /* Dim/Muted Green */
+  --border-color: 135 100% 15%;
+  /* Green-tinted border */
 
   /* Refined, Muted Accents (Linear/Vercel styling) */
-  --accent-primary: 210 100% 60%;
-  /* Sharp Blue */
-  --accent-secondary: 270 50% 60%;
-  /* Muted Purple */
+  --accent-primary: 135 100% 50%;
+  /* Neon Green */
+  --accent-secondary: 135 100% 30%;
+  /* Dark Green */
   --accent-danger: 0 84% 60%;
   /* Alert Red */
   --accent-warning: 35 100% 55%;
   /* Alert Yellow */
-  --accent-success: 142 71% 45%;
+  --accent-success: 135 100% 50%;
   /* Success Green */
 
   /* Gradients */
@@ -46,7 +46,7 @@
   --space-16: 8rem;
 
   /* Premium Typography Master */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -79,17 +79,13 @@ h6 {
 }
 
 .text-gradient {
-  background: var(--gradient-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: hsl(var(--text-primary));
+  text-shadow: 0 0 10px hsla(var(--text-primary), 0.3);
 }
 
 .text-gradient-accent {
-  background: var(--gradient-main);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: hsl(var(--text-primary));
+  text-shadow: 0 0 10px hsla(var(--text-primary), 0.5);
 }
 
 .mono {
@@ -129,27 +125,28 @@ h6 {
 }
 
 .btn-primary {
-  background: #ffffff;
-  color: #000000;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 14px 0 rgba(255, 255, 255, 0.1);
+  background: hsla(var(--text-primary), 0.1);
+  color: hsl(var(--text-primary));
+  box-shadow: 0 0 0 1px hsl(var(--text-primary));
 }
 
 .btn-primary:hover {
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 6px 20px rgba(255, 255, 255, 0.15);
+  background: hsl(var(--text-primary));
+  color: hsl(var(--bg-base));
+  box-shadow: 0 0 0 1px hsl(var(--text-primary)), 0 6px 20px hsla(var(--text-primary), 0.3);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
   background: transparent;
   color: hsl(var(--text-secondary));
-  border: 1px solid hsla(var(--text-secondary), 0.2);
+  border: 1px solid hsla(var(--text-secondary), 0.5);
 }
 
 .btn-secondary:hover {
   color: hsl(var(--text-primary));
   background: hsla(var(--text-primary), 0.05);
-  border-color: hsla(var(--text-secondary), 0.4);
+  border-color: hsl(var(--text-primary));
 }
 
 .btn-sm {
@@ -169,13 +166,13 @@ h6 {
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 1px 0 0 hsla(var(--text-primary), 0.05);
+  box-shadow: inset 0 1px 0 0 hsla(var(--text-primary), 0.1);
   /* 1px top highlight */
 }
 
 .glass-panel:hover {
-  border-color: hsla(var(--text-secondary), 0.3);
-  box-shadow: inset 0 1px 0 0 hsla(var(--text-primary), 0.08), 0 10px 40px -10px hsla(0, 0%, 0%, 0.5);
+  border-color: hsl(var(--text-primary));
+  box-shadow: inset 0 1px 0 0 hsla(var(--text-primary), 0.2), 0 0 20px hsla(var(--text-primary), 0.05);
 }
 
 /* Beautiful App Screenshots */
@@ -184,8 +181,8 @@ h6 {
   max-width: 100%;
   height: auto;
   border-radius: 12px;
-  border: 1px solid hsla(var(--border-color), 0.8);
-  box-shadow: inset 0 1px 0 0 hsla(var(--text-primary), 0.05), 0 20px 40px -20px rgba(0, 0, 0, 0.8);
+  border: 1px solid hsla(var(--text-primary), 0.3);
+  box-shadow: inset 0 1px 0 0 hsla(var(--text-primary), 0.2), 0 20px 40px -20px rgba(0, 0, 0, 0.8);
   display: block;
 }
 
