@@ -635,3 +635,244 @@ footer {
 .glow-card:hover::after {
   opacity: 1;
 }
+
+/* ======================== */
+/* Stats Counters           */
+/* ======================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: hsl(var(--text-primary));
+  line-height: 1;
+  margin-bottom: var(--space-2);
+  text-shadow: 0 0 20px hsla(var(--text-primary), 0.3);
+}
+
+.stat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(var(--text-primary));
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-desc {
+  font-size: 0.85rem;
+  color: hsl(var(--text-tertiary));
+  line-height: 1.4;
+}
+
+/* ======================== */
+/* Before vs After          */
+/* ======================== */
+.comparison-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .comparison-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.comparison-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.comparison-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.comparison-header-bad {
+  background: hsla(0, 70%, 50%, 0.1);
+  border-bottom: 1px solid hsla(0, 70%, 50%, 0.3);
+  color: hsl(0, 70%, 60%);
+}
+
+.comparison-header-good {
+  background: hsla(135, 100%, 50%, 0.08);
+  border-bottom: 1px solid hsla(135, 100%, 50%, 0.3);
+  color: hsl(var(--text-primary));
+}
+
+.comparison-list {
+  list-style: none;
+  padding: var(--space-4);
+}
+
+.comparison-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid hsla(var(--border-color), 0.4);
+}
+
+.comparison-list li:last-child {
+  border-bottom: none;
+}
+
+.comparison-icon {
+  flex-shrink: 0;
+  font-weight: 700;
+  width: 20px;
+  text-align: center;
+}
+
+.comparison-icon.bad {
+  color: hsl(0, 70%, 55%);
+}
+
+.comparison-icon.good {
+  color: hsl(var(--text-primary));
+}
+
+/* ======================== */
+/* Comparison Table         */
+/* ======================== */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid hsla(var(--border-color), 0.6);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  border-bottom: 1px solid hsla(var(--border-color), 0.4);
+}
+
+.comparison-table th {
+  background: hsl(135, 15%, 4%);
+  color: hsl(var(--text-secondary));
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+}
+
+.comparison-table th:first-child,
+.comparison-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+
+.comparison-table tbody tr:hover {
+  background: hsla(135, 40%, 20%, 0.05);
+}
+
+.highlight-col {
+  background: hsla(135, 100%, 50%, 0.05) !important;
+  border-left: 1px solid hsla(135, 100%, 50%, 0.15);
+  border-right: 1px solid hsla(135, 100%, 50%, 0.15);
+}
+
+.comparison-table th.highlight-col {
+  color: hsl(var(--text-primary));
+  background: hsla(135, 100%, 50%, 0.1) !important;
+}
+
+.check {
+  color: hsl(var(--text-primary));
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.cross {
+  color: hsl(0, 50%, 45%);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.partial {
+  color: hsl(35, 80%, 50%);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* ======================== */
+/* Integrations Grid        */
+/* ======================== */
+.integrations-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .integrations-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .integrations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.integration-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-3);
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.integration-card:hover {
+  transform: translateY(-4px);
+  border-color: hsl(var(--text-primary));
+}
+
+.integration-card svg {
+  color: hsl(var(--text-primary));
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.integration-card:hover svg {
+  opacity: 1;
+}
+
+.integration-card span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: hsl(var(--text-secondary));
+}
