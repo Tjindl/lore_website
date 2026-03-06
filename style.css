@@ -63,6 +63,12 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* Subtle terminal grid */
+  background-image:
+    linear-gradient(hsla(135, 40%, 20%, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, hsla(135, 40%, 20%, 0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-attachment: fixed;
 }
 
 /* Typography Utilities */
@@ -321,9 +327,21 @@ code {
   height: 100vh;
   z-index: -1;
   background:
-    radial-gradient(circle at 20% 30%, hsla(var(--accent-primary), 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, hsla(var(--accent-secondary), 0.15) 0%, transparent 40%);
-  filter: blur(60px);
+    radial-gradient(circle at 30% 40%, hsla(135, 100%, 50%, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, hsla(135, 100%, 40%, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, hsla(135, 100%, 50%, 0.04) 0%, transparent 70%);
+  filter: blur(80px);
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+  0% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .hero-content {
