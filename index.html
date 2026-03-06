@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lore | Local-First Project Memory</title>
+  <meta name="description"
+    content="Lore acts as a persistent, project-level brain that remembers why you made decisions, the invariants you established, and the gotchas you encountered—stored entirely as local Markdown/JSON in your codebase." />
+  <!-- Preload fonts to avoid FOUT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="./style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="container"
+    style="padding-top: 2rem; padding-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; position: absolute; top: 0; left: 0; right: 0; z-index: 10;">
+    <div style="font-weight: 800; font-size: 1.5rem; letter-spacing: -0.05em;">
+      Lore<span class="text-gradient">.</span>
+    </div>
+    <div>
+      <a href="https://github.com/Tjindl/Lore" target="_blank" class="btn btn-secondary btn-sm">GitHub</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container relative">
+      <div class="hero-content reveal">
+        <span class="eyebrow">Local-First Project Memory</span>
+        <h1>Your codebase has a story.<br /><span class="text-gradient-accent">Lore remembers it.</span></h1>
+        <p>Every architectural decision, invariant, gotcha, and abandoned approach — captured automatically, structured,
+          versioned in git, and injected right into your AI coding sessions.</p>
+
+        <div class="hero-cta">
+          <a href="#install" class="btn btn-primary">Install Lore</a>
+          <a href="#workflow" class="btn btn-secondary">See How it Works</a>
+        </div>
+
+        <!-- Terminal Mockup -->
+        <div class="terminal-block reveal"
+          style="text-align: left; max-width: 600px; margin: 0 auto; transition-delay: 200ms;">
+          <div class="terminal-header">
+            <div class="terminal-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span
+                class="dot-green"></span></div>
+            <span class="terminal-title">bash</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="token prompt">~</span><span class="token command">lore</span> <span
+                class="token arg">ui</span> <span class="token comment" style="margin-left:8px;"># Local browser
+                dashboard</span></div>
+            <div><span class="token prompt">~</span><span class="token command">lore</span> <span
+                class="token arg">prompt "auth"</span> <span class="token comment" style="margin-left:8px;"># Context
+                Compactor</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation & Setup -->
+  <section class="section" id="install">
+    <div class="container container-sm">
+      <div class="section-header reveal">
+        <h2>Install & <span class="text-gradient">Quick Start</span></h2>
+        <p>Zero configuration required. Start capturing context in seconds.</p>
+      </div>
+
+      <div class="terminal-block reveal">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+          </div>
+          <span class="terminal-title">bash</span>
+          <button class="copy-btn"
+            data-clipboard-text="npm install -g lore-memory && cd your-project && lore init && lore watch --daemon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg> Copy
+          </button>
+        </div>
+        <div class="terminal-body">
+          <div><span class="token prompt">$</span><span class="token command">npm</span> <span class="token arg">install
+              -g lore-memory</span> <span class="token comment"># Install globally</span></div>
+          <div><span class="token prompt">$</span><span class="token command">cd</span> <span
+              class="token arg">your-project</span></div>
+          <div><span class="token prompt">$</span><span class="token command">lore</span> <span
+              class="token arg">init</span> <span class="token comment"># Sets up .lore/ and scans for comments</span>
+          </div>
+          <div><span class="token prompt">$</span><span class="token command">lore</span> <span class="token arg">watch
+              --daemon</span> <span class="token comment"># Starts passive capture in the background</span></div>
+          <div><span class="token prompt">$</span><span class="token command">lore</span> <span
+              class="token arg">ui</span> <span class="token comment" style="padding-left: 20px;"># View memory bank in
+              a local web dashboard</span></div>
+          <div><span class="token prompt">$</span><span class="token command">lore</span> <span class="token arg">prompt
+              "auth"</span> <span class="token comment"># Generate AI system prompt</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Pillars Section -->
+  <section class="section" id="pillars">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>The 4 Pillars of <span class="text-gradient">Lore</span></h2>
+        <p>Lore categorizes engineering knowledge into four distinct, semantic types, ensuring context is always highly
+          relevant to the problem at hand.</p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Architecture -->
+        <div class="glass-panel pillar-card glow-card reveal">
+          <div class="icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <h3>Decisions</h3>
+          <p>The clear "Why" behind your tech stack choices. Stop debating the same architectural tradeoffs every six
+            months (e.g., "Use Postgres over MongoDB").</p>
+        </div>
+
+        <!-- Invariants -->
+        <div class="glass-panel pillar-card glow-card reveal" style="transition-delay: 100ms;">
+          <div class="icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h3>Invariants <span style="font-size: 1rem">🔴</span></h3>
+          <p>Critical, unbreakable rules. e.g., "All auth tokens must be validated on every request." If these are
+            broken, the system fails.</p>
+        </div>
+
+        <!-- Gotchas -->
+        <div class="glass-panel pillar-card glow-card reveal" style="transition-delay: 200ms;">
+          <div class="icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <h3>Gotchas <span style="font-size: 1rem">⚠️</span></h3>
+          <p>Non-obvious behaviors and footguns. Documented once, so your team never wastes hours debugging the same
+            <code>Date.now()</code> flaky test.
+          </p>
+        </div>
+
+        <!-- Graveyard -->
+        <div class="glass-panel pillar-card glow-card reveal" style="transition-delay: 300ms;">
+          <div class="icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="3" ry="3"></rect>
+              <line x1="12" y1="7" x2="12" y2="17"></line>
+              <line x1="8" y1="10" x2="16" y2="10"></line>
+            </svg>
+          </div>
+          <h3>The Graveyard <span style="font-size: 1rem">🪦</span></h3>
+          <p>Failed experiments and abandoned approaches. Never waste time re-trying GraphQL six months later when the
+            n+1 queries killed the DB.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workflow Section -->
+  <section class="section" id="workflow">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>The Developer <span class="text-gradient">Workflow</span></h2>
+        <p>Lore acts seamlessly in the bounds of your daily Unix workflow. It watches, it mines, and it serves context
+          exactly when you need it.</p>
+      </div>
+
+      <div class="workflow-step reveal">
+        <div class="workflow-content">
+          <h3>1. Passive Capture via Watcher</h3>
+          <p>You don't have to stop coding to document. Lore passively scans your source code for signal phrases
+            (`WARNING:`, `hack`, `we chose`) and automatically drafts entries.</p>
+          <p>If you delete a file over 100 lines, Lore drafts a Graveyard record. If you edit the same file 5 times in a
+            week, it drafts a Gotcha.</p>
+        </div>
+        <div class="workflow-terminal">
+          <img src="/assets/lore-ui-drafts.png" alt="Lore Pending Drafts UI" class="app-screenshot" />
+        </div>
+      </div>
+
+      <div class="workflow-step reveal">
+        <div class="workflow-content">
+          <h3>2. The Local UI Dashboard</h3>
+          <p>Forget reading JSON files. Spin up a stunning, real-time local web server on port 3000 to search your
+            project memory.</p>
+          <p>View your Lore Score health, manage drafts, and read beautifully formatted Markdown entries of your
+            project's history in a dedicated graphical interface.</p>
+        </div>
+        <div class="workflow-terminal">
+          <img src="/assets/lore-ui-knowledge-base.png" alt="Lore Knowledge Base UI" class="app-screenshot" />
+        </div>
+      </div>
+
+      <div class="workflow-step reveal">
+        <div class="workflow-content">
+          <h3>3. Zero-Shot "Context Compactor"</h3>
+          <p>Run <code>lore prompt "Refactoring Auth"</code> and Lore instantly uses semantic vector search to compile a
+            perfectly formatted, zero-shot system prompt.</p>
+          <p><strong style="color: hsl(var(--accent-secondary))">Saves Context Tokens:</strong> Rather than dumping your
+            entire project documentation into the AI, Lore uses graph-weighted context to inject only the precise
+            invariants, decisions, and gotchas the LLM needs to know before it touches your code.</p>
+        </div>
+        <div class="workflow-terminal terminal-block">
+          <div class="terminal-header">
+            <div class="terminal-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span
+                class="dot-green"></span></div>
+            <span class="terminal-title">bash</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="token prompt">$</span><span class="token command">lore</span> <span
+                class="token arg">prompt "auth" | pbcopy</span></div>
+            <div style="color: hsl(var(--text-secondary)); margin-top: 1rem;">
+              <span style="color: hsl(var(--accent-success))">✓</span> Semantic search complete<br />
+              <span style="color: hsl(var(--accent-success))">✓</span> 3 invariants injected<br />
+              <span style="color: hsl(var(--accent-success))">✓</span> 1 gotcha injected<br />
+              <br />
+              System prompt copied to clipboard!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step reveal">
+        <div class="workflow-content">
+          <h3>4. Connect Claude via MCP</h3>
+          <p><strong style="color: hsl(var(--accent-success))">Solves the "Blank Slate" Problem:</strong> Add the MCP
+            server to your Claude Code or Cursor config
+            and Lore operates as an active, persistent memory bank.</p>
+          <p><strong style="color: hsl(var(--accent-primary))">Prevents Hallucinated Refactors:</strong> Claude
+            automatically calls <code>lore_why</code> when you
+            ask it to work on a file. It won't break edge cases because it is told the constraints upfront. It won't
+            suggest adding an inline fraud-check if Lore's Invariant demands a 200ms SLA.</p>
+        </div>
+        <div class="workflow-terminal terminal-block">
+          <div class="terminal-header">
+            <div class="terminal-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span
+                class="dot-green"></span></div>
+            <span class="terminal-title">mcpServer config</span>
+          </div>
+          <div class="terminal-body">
+            <pre style="margin: 0;"><code>{
+  "mcpServers": {
+    "lore": {
+      "command": "lore",
+      "args": ["serve"]
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step reveal">
+        <div class="workflow-content">
+          <h3>5. Maintain Health & Staleness</h3>
+          <p>Traditional wikis die because they go out of date. Lore links entries to specific files. If that file is
+            modified in the git history, Lore flags the entry as <code>[Stale]</code>.</p>
+          <p>Run <code>lore score</code> to gamify your documentation and measure your project's memory health based on
+            Coverage, Freshness, and Depth.</p>
+        </div>
+        <div class="workflow-terminal">
+          <img src="/assets/lore-ui-score.png" alt="Lore Health Score UI" class="app-screenshot" />
+        </div>
+      </div>
+
+      <div class="workflow-step reveal">
+        <div class="workflow-terminal" style="order: 2;">
+          <img src="/assets/lore-ui-graph.png" alt="Lore Dependency Graph UI" class="app-screenshot" />
+        </div>
+        <div class="workflow-content" style="order: 1; padding-right: 0; padding-left: var(--space-6);">
+          <h3>6. Visualize Project Context</h3>
+          <p>Understand how different pieces of your codebase interact. Lore maps the relationships between your
+            components, invariants, and decisions to give you a bird's-eye view of your architecture.</p>
+          <p>The <strong>Dependency Graph</strong> ensures you never accidentally break a downstream service by
+            refactoring an upstream module.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container reveal">
+      <div class="trust-tokens">
+        <div class="trust-token">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>100% Free & Open Source</span>
+        </div>
+        <div class="trust-token">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Privacy-First (No Cloud APIs - Local Ollama Embeddings)</span>
+        </div>
+        <div class="trust-token">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M4 17l6-6-6-6"></path>
+            <path d="M12 19h8"></path>
+          </svg>
+          <span>Unix Philosophy</span>
+        </div>
+      </div>
+      <p style="color: hsl(var(--text-tertiary)); font-size: 0.875rem;">
+        Built strictly as a CLI pipeline tool. The output is pure console.log.
+      </p>
+      <p style="color: hsl(var(--text-tertiary)); font-size: 0.875rem; margin-top: 1rem;">
+        <span style="font-weight: 600; color: hsl(var(--text-secondary));">Stack:</span> Node.js &middot; Express
+        &middot; Tailwind CSS &middot; SQLite &middot; Ollama &middot; MCP SDK
+      </p>
+    </div>
+  </footer>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
