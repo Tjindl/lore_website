@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/lore-icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Overview | Lore Docs</title>
+    <meta name="description"
+        content="A comprehensive breakdown of the Lore core architecture and the 5 directory layers.">
+    <link href="docs.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="docs-nav"><a href="/docs/index.html" class="docs-nav-brand"><span class="brand-name">Lore<span
+                    style="color:var(--text-primary);">.</span></span><span class="brand-tag">Docs</span></a>
+        <div class="docs-nav-links"><a href="/">Home</a><a href="https://github.com/Tjindl/Lore"
+                target="_blank">GitHub</a></div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div><a href="/docs/index.html" class="sidebar-link">Getting
+                    Started</a><a href="/docs/installation.html" class="sidebar-link">Installation</a><a
+                    href="/docs/architecture.html" class="sidebar-link active">Architecture Overview</a><a
+                    href="/docs/data-flow.html" class="sidebar-link">Data Flow</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Core Concepts</div><a href="/docs/entry-types.html"
+                    class="sidebar-link">Entry Types</a><a href="/docs/commands.html" class="sidebar-link">CLI
+                    Reference</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Features</div><a href="/docs/watcher.html"
+                    class="sidebar-link">Watcher &amp; Mining</a><a href="/docs/prompt.html"
+                    class="sidebar-link">Context Compactor</a><a href="/docs/ui-dashboard.html" class="sidebar-link">UI
+                    Dashboard</a><a href="/docs/health.html" class="sidebar-link">Health &amp; Staleness</a><a
+                    href="/docs/graph.html" class="sidebar-link">Dependency Graph</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Integrations</div><a href="/docs/integrations.html"
+                    class="sidebar-link">Claude, Cursor &amp; MCP</a>
+            </div>
+        </aside>
+        <main class="docs-content">
+            <h1>Architecture Overview</h1>
+            <p class="subtitle">A comprehensive breakdown of how the Lore CLI is structured internally across its five
+                core layers.</p>
+
+            <h2>The Directory Structure</h2>
+            <p>The <code>lore-memory</code> codebase is split into five main conceptual areas inside the
+                <code>src/</code> directory, designed around the Unix philosophy: do one thing well, be highly modular,
+                and enable standard piping.</p>
+
+            <pre><code>Lore/
+├── bin/
+│   └── lore.js          # The CLI entry point and interactive menu
+├── src/
+│   ├── commands/        # CLI wrappers for every command (e.g. `lore log`, `lore why`)
+│   ├── lib/             # The core "engine" (file parsing, AI embeddings, scoring)
+│   ├── watcher/         # The passive automation engine (AST parsing, graph building)
+│   ├── mcp/             # The Model Context Protocol integration for Claude/Cursor
+│   └── ui/              # The local web dashboard frontend
+└── package.json</code></pre>
+
+            <hr style="border: 1px solid var(--border-color); margin: 2rem 0;">
+
+            <h2>1. The Entry Point (<code>bin/</code>)</h2>
+            <p>This acts as the front door for the application.</p>
+            <ul>
+                <li>Uses the <strong>commander</strong> package to register and parse all CLI subcommands.</li>
+                <li>Provides an <strong>Interactive Menu</strong> (via <code>inquirer</code>) if the user simply types
+                    <code>lore</code>.</li>
+                <li>Includes a custom <strong>Fuzzy Command Matcher</strong> utilizing Levenshtein distance. If a user
+                    mistypes a command (e.g., <code>lore servee</code>), it gracefully suggests or aliases the correct
+                    command.</li>
+            </ul>
+
+            <h2>2. The Core Engine (<code>src/lib/</code>)</h2>
+            <p>This directory is the absolute backbone of Lore, containing the business logic for reading, writing, and
+                scoring knowledge entries.</p>
+            <ul>
+                <li><strong><code>entries.js</code> &amp; <code>index.js</code></strong>: Manage the <code>.lore/</code>
+                    directory. Handle reading/writing the actual Markdown/JSON files and maintaining a fast lookup
+                    index.</li>
+                <li><strong><code>relevance.js</code></strong>: Implements the <strong>Blast Radius Algorithm</strong> —
+                    scoring how relevant an entry is to a specific file based on graph weighting.</li>
+                <li><strong><code>embeddings.js</code></strong>: The AI semantic layer. Talks recursively to a local
+                    Ollama instance (<code>nomic-embed-text</code>) to convert entries into vector embeddings.</li>
+                <li><strong><code>budget.js</code></strong>: Intelligently truncates contexts (starting with lowest
+                    relevance entries) to ensure the MCP server never blows up an LLM's context window.</li>
+            </ul>
+
+            <h2>3. The Commands (<code>src/commands/</code>)</h2>
+            <p>These files act as thin wrappers. They parse user input from the CLI, format the output with
+                <code>chalk</code>, and pass the real work down into <code>src/lib/</code>.</p>
+            <ul>
+                <li><strong><code>init.js</code></strong>: Bootstraps the `.lore/` folder and dynamically injects the
+                    <strong>Architect-in-the-Loop</strong> hook into Git.</li>
+                <li><strong><code>prompt.js</code></strong>: Takes a natural language query, runs semantic search, and
+                    builds a strictly formatted system prompt.</li>
+            </ul>
+
+            <h2>4. The Passive Engine (<code>src/watcher/</code>)</h2>
+            <p>This directory is what enables Lore's automated "magical" feeling.</p>
+            <ul>
+                <li><strong><code>comments.js</code></strong>: Uses the Babel Parser to build an AST of
+                    Javascript/Typescript files, extracting comments against signal words to generate drafts.</li>
+                <li><strong><code>graph.js</code></strong>: AST parser that traverses <code>import</code> statements to
+                    build a living dependency graph.</li>
+                <li><strong><code>staleness.js</code></strong>: Compares the <code>mtime</code> of source files against
+                    the timestamps of Lore entries.</li>
+            </ul>
+
+            <h2>5. The MCP Server (<code>src/mcp/</code>)</h2>
+            <p>Allows Lore to talk directly to AI coding assistants using the Model Context Protocol.</p>
+            <ul>
+                <li><strong><code>server.js</code></strong>: Exposes Lore internal functions as secure "tools" over
+                    stdio.</li>
+                <li><strong><code>tools/why.js</code></strong>: Maps Claude's `lore_why` tool request directly to
+                    internal relevance logic.</li>
+            </ul>
+
+            <div class="page-nav">
+                <a href="/docs/installation.html"><span class="nav-label">← Previous</span><span
+                        class="nav-title">Installation</span></a>
+                <a href="/docs/data-flow.html" class="next"><span class="nav-label">Next →</span><span
+                        class="nav-title">Data Flow</span></a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
