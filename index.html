@@ -178,7 +178,7 @@
       <!-- Feature 1 -->
       <div class="workflow-step reveal" style="align-items: flex-start;">
         <div class="workflow-content" style="width: 100%; max-width: 100%; padding: 0;">
-          <h3>1. The Interactive Menu (<code>lore</code>)</h3>
+          <h3 style="flex-wrap: wrap;"><span>1. The Interactive Menu</span> <code>lore</code></h3>
           <p>If you ever forget a command, simply type <code>lore</code> into your terminal and hit Enter. You will be
             greeted with a stunning interactive menu that guides you through every feature—no manual-reading required!
           </p>
@@ -188,7 +188,7 @@
       <!-- Feature 2 & 4 Pillars -->
       <div class="workflow-step reveal" style="flex-direction: column; align-items: flex-start; margin-top: 4rem;">
         <div class="workflow-content" style="width: 100%; max-width: 100%; padding: 0;">
-          <h3>2. Logging Knowledge (<code>lore log</code>)</h3>
+          <h3 style="flex-wrap: wrap;"><span>2. Logging Knowledge</span> <code>lore log</code></h3>
           <p>When you make a technical decision, or discover a nasty bug ("Gotcha"), log it instantly:
             <code>lore log</code>
           </p>
@@ -218,7 +218,8 @@
       <!-- Feature 3 -->
       <div class="workflow-step reveal" style="margin-top: 4rem;">
         <div class="workflow-content">
-          <h3>3. Passive Mining (<code>lore watch --daemon</code>)</h3>
+          <h3 style="flex-wrap: wrap;"><span>3. Passive Mining</span> <code
+              style="white-space: nowrap;">lore watch --daemon</code></h3>
           <p>Software engineers hate writing Wikis natively. With Lore, you don't have to.</p>
           <p>Run <code>lore watch --daemon</code> in the background. As you code in your IDE, if you type
             <code>// WARNING:</code> or <code>// HACK:</code>, the Lore daemon intercepts your OS file save, reads your
@@ -237,7 +238,7 @@
           <img src="/assets/lore-ui-knowledge-base.png" alt="Lore Knowledge Base UI" class="app-screenshot" />
         </div>
         <div class="workflow-content" style="order: 1; padding-right: 0; padding-left: var(--space-6);">
-          <h3>4. The Local UI Dashboard (<code>lore ui</code>)</h3>
+          <h3 style="flex-wrap: wrap;"><span>4. The Local UI Dashboard</span> <code>lore ui</code></h3>
           <p>Want to visually explore your project's brain?</p>
           <p>Run <code>lore ui</code> to spin up a blazingly fast local web server on port 3333. You can explore the
             health of your project (The "Lore Score"), search your database, and view all your team's architectural
@@ -248,7 +249,7 @@
       <!-- Feature 5 -->
       <div class="workflow-step reveal" style="margin-top: 4rem;">
         <div class="workflow-content">
-          <h3>5. Managing Outdated Context (<code>lore stale</code>)</h3>
+          <h3 style="flex-wrap: wrap;"><span>5. Managing Outdated Context</span> <code>lore stale</code></h3>
           <p>Traditional wikis suffer from "Context Rot"—they go out of date and people stop trusting them.</p>
           <p>Because you link Lore rules directly to source code files (<code>src/auth.js</code>), if a developer
             refactors that file 6 months later, Lore compares the OS timestamps and automatically flags the rule as
@@ -282,7 +283,7 @@
           </div>
         </div>
         <div class="workflow-content" style="order: 1; padding-right: 0; padding-left: var(--space-6);">
-          <h3>6. The Context Compactor (<code>lore prompt</code>)</h3>
+          <h3 style="flex-wrap: wrap;"><span>6. The Context Compactor</span> <code>lore prompt</code></h3>
           <p>Don't use Claude Code? If you prefer the ChatGPT web browser, don't dump your entire repository into the
             chat (it wastes context and money).</p>
           <p>Run <code>lore prompt "Refactoring Auth" | pbcopy</code></p>
