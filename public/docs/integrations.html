@@ -110,6 +110,22 @@
                 established constraints.
             </div>
 
+            <h4 style="margin-top: 2rem;">🛡️ Autonomous Zero-Prompt Enforcement</h4>
+            <p>To make Claude autonomously respect your codebase rules without you ever having to ask it, drop a
+                <code>CLAUDE.md</code> (or <code>.cursorrules</code> / <code>.clinerules</code>) file in the root of
+                your project with this exact instruction:</p>
+
+            <blockquote
+                style="border-left: 4px solid var(--text-primary); padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: var(--text-secondary);">
+                "Before you modify, create, or explain any file in this codebase, you must ALWAYS execute the
+                <code>lore_why</code> tool on that file path first to check if there are any architectural invariants,
+                gotchas, or decisions you need to respect."
+            </blockquote>
+
+            <p>Once added, the AI will autonomously query Lore in the background before it writes a single line of code,
+                ensuring it never violates your team's architectural constraints.</p>
+
+
             <h2>Cursor</h2>
             <p>Cursor supports MCP servers through its settings. Add the same config:</p>
             <ol>
